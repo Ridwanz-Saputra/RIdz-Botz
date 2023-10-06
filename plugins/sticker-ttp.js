@@ -1,0 +1,16 @@
+import { sticker } from '../lib/sticker.js'
+import fg from 'api-dylux'
+let handler = async (m, { conn, text, usedPrefix, command }) => {
+    
+    if (!text) throw `✳️ Kirim teks\n\n📌Contoh *${usedPrefix + command}* Ridwanz`  
+    let color = 'F5F5DC' //color
+    let res = await fg.ttp(text, color) 
+    let stiker = await sticker(null, res.result, global.packname, global.author)
+    if (stiker) return await conn.sendFile(m.chat, stiker, '', '', m, null, rpl)
+    throw stiker.toString()
+}
+handler.help = ['ttp <text>']
+handler.tags = ['sticker']
+handler.command = ['ttp']
+
+export default handler
